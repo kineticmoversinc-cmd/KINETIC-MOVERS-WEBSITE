@@ -13,7 +13,80 @@ document.addEventListener("DOMContentLoaded", function () {
   initAddressAutocomplete();
   initClickableCards();
   initFormResetOnBack();
+  initPhoneQr();
 });
+
+/* ---------- on desktop/laptop, tel: links do nothing (no dialer app) ----------
+   Show a "scan to call" QR code + copy button instead. On an actual phone,
+   the link still dials normally. ---------- */
+function initPhoneQr() {
+  var links = document.querySelectorAll('a[href^="tel:"]');
+  if (!links.length) return;
+
+  // Rough desktop/laptop detection: no coarse (touch) pointer available.
+  var isTouchDevice = window.matchMedia && window.matchMedia('(any-pointer: coarse)').matches;
+  if (isTouchDevice) return; // let phones/tablets dial normally
+
+  var modal = null;
+
+  function buildModal() {
+    var overlay = document.createElement('div');
+    overlay.className = 'kw-qr-overlay';
+    overlay.hidden = true;
+    overlay.innerHTML =
+      '<div class="kw-qr-panel" role="dialog" aria-label="Call Kinetic Movers">' +
+        '<button class="kw-qr-close" aria-label="Close">&times;</button>' +
+        '<h3>Call Kinetic Movers</h3>' +
+        '<p class="kw-qr-number" id="kw-qr-number"></p>' +
+        '<img class="kw-qr-img" id="kw-qr-img" alt="QR code to call Kinetic Movers" width="180" height="180">' +
+        '<p class="kw-qr-hint">Scan with your phone camera to call, or:</p>' +
+        '<button class="btn btn-primary kw-qr-copy" id="kw-qr-copy">Copy number</button>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) hide();
+    });
+    overlay.querySelector('.kw-qr-close').addEventListener('click', hide);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hide();
+    });
+
+    return overlay;
+  }
+
+  function show(telHref, displayNumber) {
+    if (!modal) modal = buildModal();
+    modal.querySelector('#kw-qr-number').textContent = displayNumber;
+    modal.querySelector('#kw-qr-img').src =
+      'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + encodeURIComponent(telHref);
+
+    var copyBtn = modal.querySelector('#kw-qr-copy');
+    copyBtn.textContent = 'Copy number';
+    copyBtn.onclick = function () {
+      var num = telHref.replace('tel:', '');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(num).then(function () {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function () { copyBtn.textContent = 'Copy number'; }, 1500);
+        });
+      }
+    };
+
+    modal.hidden = false;
+  }
+
+  function hide() {
+    if (modal) modal.hidden = true;
+  }
+
+  Array.prototype.forEach.call(links, function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      show(link.getAttribute('href'), link.textContent.trim());
+    });
+  });
+}
 
 /* ---------- clear quote forms when a user lands back on the page via the
    browser back/forward button after submitting (bfcache keeps old field
