@@ -112,6 +112,7 @@ p{color:var(--charcoal)}
   color:var(--white);
   position:relative;
   border-bottom:1px solid var(--line-dark);
+  z-index:500;
 }
 .site-header .wrap{
   display:flex;align-items:center;justify-content:space-between;
@@ -155,6 +156,8 @@ p{color:var(--charcoal)}
     padding:24px;gap:22px;
     transform:translateX(100%);
     transition:transform .25s ease;
+    z-index:499;
+    overflow-y:auto;
   }
   .main-nav.open{transform:translateX(0)}
   .main-nav a{font-size:1.1rem}
