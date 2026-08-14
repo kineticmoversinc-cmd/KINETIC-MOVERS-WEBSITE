@@ -491,6 +491,33 @@ blockquote{
   .kw-fab svg{width:22px;height:22px}
   .kw-chat-panel{right:10px;left:10px;width:auto;bottom:80px}
 }
+/* ---------- desktop "scan to call" QR modal ---------- */
+.kw-qr-overlay{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(11,23,48,0.55);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+.kw-qr-overlay[hidden]{display:none}
+.kw-qr-panel{
+  background:var(--white);color:var(--charcoal);
+  border-radius:12px;padding:28px;
+  width:280px;max-width:100%;
+  text-align:center;position:relative;
+  box-shadow:0 24px 60px rgba(0,0,0,0.35);
+  font-family:var(--body);
+}
+.kw-qr-panel h3{margin-bottom:6px}
+.kw-qr-number{font-family:var(--mono);font-size:1rem;margin-bottom:14px}
+.kw-qr-img{width:180px;height:180px;margin:0 auto 14px;display:block}
+.kw-qr-hint{font-size:0.85rem;color:var(--charcoal-soft);margin-bottom:12px}
+.kw-qr-copy{width:100%}
+.kw-qr-close{
+  position:absolute;right:12px;top:10px;
+  background:none;border:none;font-size:1.4rem;line-height:1;
+  cursor:pointer;color:var(--charcoal-soft);
+}
+
 .footer-logo{height:40px;width:40px;border-radius:50%;margin-bottom:12px}
 .footer-grid h4{color:var(--white);font-size:0.95rem;margin-bottom:14px}
 .footer-grid ul{list-style:none}
