@@ -12,7 +12,36 @@ document.addEventListener("DOMContentLoaded", function () {
   initChatWidget();
   initAddressAutocomplete();
   initClickableCards();
+  initFormResetOnBack();
 });
+
+/* ---------- clear quote forms when a user lands back on the page via the
+   browser back/forward button after submitting (bfcache keeps old field
+   values otherwise) ---------- */
+function initFormResetOnBack() {
+  var forms = document.querySelectorAll('form');
+  if (!forms.length) return;
+
+  function resetAll() {
+    Array.prototype.forEach.call(forms, function (f) {
+      f.reset();
+    });
+  }
+
+  // Fires when the page is restored from the back/forward cache.
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      resetAll();
+      return;
+    }
+    // Fallback for browsers that don't set e.persisted but do report
+    // a back_forward navigation type.
+    if (window.performance && performance.getEntriesByType) {
+      var nav = performance.getEntriesByType('navigation')[0];
+      if (nav && nav.type === 'back_forward') resetAll();
+    }
+  });
+}
 
 /* ---------- make whole service/location cards clickable, not just "Learn more" ---------- */
 function initClickableCards() {
@@ -29,6 +58,36 @@ function initClickableCards() {
 }
 
 /* ---------- address search/autocomplete for "Moving from" / "Moving to" ---------- */
+var KW_PROVINCE_ABBR = {
+  "Ontario": "ON", "Quebec": "QC", "Québec": "QC", "Nova Scotia": "NS",
+  "New Brunswick": "NB", "Manitoba": "MB", "British Columbia": "BC",
+  "Prince Edward Island": "PE", "Saskatchewan": "SK", "Alberta": "AB",
+  "Newfoundland and Labrador": "NL", "Northwest Territories": "NT",
+  "Yukon": "YT", "Nunavut": "NU"
+};
+
+/* Build a short, clean "123 Main St, City, ON" string instead of Nominatim's
+   long/unreliable display_name (which drags in neighbourhood, region, county
+   names and a postcode that is frequently wrong for the exact civic number). */
+function kwFormatAddress(result) {
+  var a = result.address || {};
+  var streetParts = [];
+  if (a.house_number) streetParts.push(a.house_number);
+  if (a.road) streetParts.push(a.road);
+  var street = streetParts.join(' ');
+
+  var city = a.city || a.town || a.village || a.municipality || a.suburb || a.hamlet || '';
+  var province = KW_PROVINCE_ABBR[a.state] || a.state || '';
+
+  var parts = [];
+  if (street) parts.push(street);
+  if (city) parts.push(city);
+  if (province) parts.push(province);
+
+  var short = parts.join(', ');
+  return short || result.display_name;
+}
+
 function initAddressAutocomplete() {
   var inputs = document.querySelectorAll('#from, #to');
   if (!inputs.length) return;
@@ -106,10 +165,12 @@ function initAddressAutocomplete() {
         return;
       }
       results.forEach(function (r) {
+        var shortAddr = kwFormatAddress(r);
         var item = document.createElement('div');
-        item.textContent = r.display_name;
+        item.textContent = shortAddr;
+        item.title = r.display_name;
         item.addEventListener('click', function () {
-          input.value = r.display_name;
+          input.value = shortAddr;
           hideList();
         });
         list.appendChild(item);
@@ -118,7 +179,7 @@ function initAddressAutocomplete() {
     }
 
     function searchAddress(query, cb) {
-      var url = 'https://nominatim.openstreetmap.org/search?format=json&addressdetails=0&limit=5&countrycodes=ca&q=' + encodeURIComponent(query);
+      var url = 'https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&countrycodes=ca&q=' + encodeURIComponent(query);
       fetch(url, { headers: { 'Accept': 'application/json' } })
         .then(function (res) { return res.json(); })
         .then(function (data) { cb(data || []); })
