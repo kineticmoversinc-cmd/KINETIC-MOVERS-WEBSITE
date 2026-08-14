@@ -1,5 +1,11 @@
+# Capitalization fix for SERVICES
 /SERVICES /services/ 301
-/services /services/ 301
+/SERVICES/ /services/ 301
+
+# Redirect old blog page to Homepage
 /blog / 301
+/blog/ / 301
+
+# Clean URL for Thank You page
 /thank-you /thank-you.html 301
 /thank-you/ /thank-you.html 301
