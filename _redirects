@@ -1,0 +1,53 @@
+# ── Kinetic Movers — canonical URL enforcement ─────────────────────────────
+# Rule: every indexable page has exactly ONE reachable URL.
+# Order matters: most specific rules first.
+
+# --- Fix: GSC "Discovered - currently not indexed" (/services) -----------
+# Cloudflare Pages was serving /services with no redirect to the real
+# canonical /services/ (the existing /SERVICES rule only covered uppercase).
+/services /services/ 301
+/SERVICES /services/ 301
+
+# --- Fix: GSC "Alternate page with proper canonical tag" (16 pages) -------
+# Cloudflare Pages auto-serves an extensionless duplicate of every .html
+# file (e.g. /locations/brampton AND /locations/brampton.html both 200).
+# Force the extensionless variant to 301 into the canonical .html URL so
+# Google only ever finds one crawlable address per page.
+
+# Locations
+/locations/brampton /locations/brampton.html 301
+/locations/toronto /locations/toronto.html 301
+/locations/mississauga /locations/mississauga.html 301
+/locations/vaughan /locations/vaughan.html 301
+/locations/markham /locations/markham.html 301
+/locations/richmond-hill /locations/richmond-hill.html 301
+/locations/hamilton /locations/hamilton.html 301
+/locations/oakville /locations/oakville.html 301
+/locations/milton /locations/milton.html 301
+/locations/kitchener /locations/kitchener.html 301
+/locations/waterloo /locations/waterloo.html 301
+/locations/cambridge /locations/cambridge.html 301
+/locations/brantford /locations/brantford.html 301
+/locations/niagara-falls /locations/niagara-falls.html 301
+/locations/oshawa /locations/oshawa.html 301
+/locations/ottawa /locations/ottawa.html 301
+/locations/windsor /locations/windsor.html 301
+/locations/montreal /locations/montreal.html 301
+
+# Services
+/services/residential-moving /services/residential-moving.html 301
+/services/packing-unpacking /services/packing-unpacking.html 301
+/services/commercial-moving /services/commercial-moving.html 301
+
+# --- Preventive: same clean-URL duplication risk on other top pages -------
+/about /about.html 301
+/contact /contact.html 301
+
+# --- Preventive: bare /locations (no trailing slash) -----------------------
+/locations /locations/ 301
+
+# --- Existing rules (unchanged) --------------------------------------------
+/blog / 301
+/blog/ / 301
+/thank-you /thank-you.html 301
+/thank-you/ /thank-you.html 301
