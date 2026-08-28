@@ -1,0 +1,26 @@
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Brampton-Specific Moving Challenges</span>
+        <h2>Navigating Local Obstacles with Ease</h2>
+        <p class="lede">Moving in Brampton presents unique considerations that require local expertise. From condo elevator reservations in vertical communities to parking permit logistics in bustling districts, we handle the details so you don't have to.</p>
+        <div class="grid-3">
+          <div class="card">
+            <svg class="card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="8,30 32,10 56,30" fill="none" stroke="#12213E" stroke-width="3" stroke-linejoin="round"/><rect x="14" y="30" width="36" height="26" fill="none" stroke="#12213E" stroke-width="3"/><rect x="28" y="38" width="10" height="18" fill="#FF5A1F"/></svg>
+            <h3>Condo & Apartment Moves</h3>
+            <p>Brampton's growing number of high-rise buildings—particularly along Main Street and near Bramalea City Centre—require advance elevator booking and loading dock coordination. We manage all paperwork with property management companies and ensure your move-in time is respected.</p>
+          </div>
+          <div class="card">
+            <svg class="card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="10" y="20" width="44" height="34" fill="none" stroke="#12213E" stroke-width="3"/><line x1="10" y1="37" x2="54" y2="37" stroke="#FF5A1F" stroke-width="4"/><line x1="32" y1="20" x2="32" y2="54" stroke="#FF5A1F" stroke-width="4"/><polyline points="10,20 32,8 54,20" fill="none" stroke="#12213E" stroke-width="3" stroke-linejoin="round"/></svg>
+            <h3>Parking & Street Permits</h3>
+            <p>In busy areas like downtown Brampton and around Sheridan College, street parking for moving trucks often requires permits from the City of Brampton. Our team knows exactly which forms to submit, when to submit them, and how to coordinate with municipal authorities to avoid delays or fines.</p>
+          </div>
+          <div class="card">
+            <svg class="card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="16" y="8" width="32" height="48" fill="none" stroke="#12213E" stroke-width="3"/><rect x="24" y="18" width="6" height="6" fill="#4C6FA0"/><rect x="34" y="18" width="6" height="6" fill="#4C6FA0"/><rect x="34" y="30" width="6" height="6" fill="#4C6FA0"/><rect x="27" y="42" width="10" height="14" fill="#FF5A1F"/></svg>
+            <h3>Seasonal Weather Considerations</h3>
+            <p>Brampton's climate brings hot, humid summers and snowy, icy winters. We're equipped with climate-controlled trucks for sensitive items during summer moves and winter-ready vehicles with snow tires and de-icing supplies to ensure safe transport regardless of the season.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

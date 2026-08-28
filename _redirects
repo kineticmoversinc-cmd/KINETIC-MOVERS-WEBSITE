@@ -1,0 +1,19 @@
+# ── Kinetic Movers — canonical URL enforcement ─────────────────────────────
+# Cloudflare Pages automatically 308-redirects every .html request to its
+# extensionless equivalent (e.g. /contact.html -> /contact), and serves the
+# .html file's content natively at the extensionless route. This is a
+# platform-level behavior that cannot be disabled — so extensionless is the
+# real canonical URL for every page on this site. Every rule below works
+# WITH that behavior. Do not add any rule that redirects an extensionless
+# path to a .html path — that creates an infinite redirect loop with
+# Cloudflare's own default (this previously broke /locations/brampton.html,
+# /about.html, /contact.html, and /thank-you.html).
+
+# --- Folder-index normalization (safe: no .html involved) -----------------
+/services /services/ 301
+/SERVICES /services/ 301
+/locations /locations/ 301
+
+# --- Legacy ------------------------------------------------------------
+/blog / 301
+/blog/ / 301
