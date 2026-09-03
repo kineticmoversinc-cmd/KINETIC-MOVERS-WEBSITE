@@ -1,8 +1,0 @@
-  <section class="cta-band">
-    <div class="wrap">
-      <h2>Ready to Move in Brampton?</h2>
-      <p class="lede">Get your browser does not support the video tag.">Get your free, fixed quote today—usually within one business day.</p>
-      <a class="btn btn-ghost-light" href="/contact">Get my free quote</a>
-    </div>
-  </section>
-</main>

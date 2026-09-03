@@ -1,4 +1,0 @@
-<main id="main">
-  <div class="wrap breadcrumb"><a href="/">Home</a> / <a href="/locations/">Locations</a> / Toronto</div>
-  <section class="route-hero" style="padding-top:32px">
-    <div class="wrap hero-grid">
