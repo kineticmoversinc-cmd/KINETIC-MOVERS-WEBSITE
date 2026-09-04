@@ -1,0 +1,42 @@
+# ── Kinetic Movers — canonical URL enforcement ─────────────────────────────
+# Cloudflare Pages automatically 308-redirects every .html request to its
+# extensionless equivalent (e.g. /contact.html -> /contact), and serves the
+# .html file's content natively at the extensionless route. This is a
+# platform-level behavior that cannot be disabled — so extensionless is the
+# real canonical URL for every page on this site. Every rule below works
+# WITH that behavior. Do not add any rule that redirects an extensionless
+# path to a .html path — that creates an infinite redirect loop with
+# Cloudflare's own default (this previously broke /locations/brampton.html,
+# /about.html, /contact.html, and /thank-you.html).
+
+# --- Folder-index normalization (safe: no .html involved) -----------------
+/services /services/ 301
+/SERVICES /services/ 301
+/locations /locations/ 301
+
+# --- Legacy ------------------------------------------------------------
+/blog / 301
+/blog/ / 301
+
+# --- Retired /moving-guide-gta/ section (replaced by /content-hub/ and
+#     /services/ pages). These URLs no longer exist as source files but
+#     Google Search Console still shows them as crawled/orphaned
+#     ("Crawled - currently not indexed"), most likely from an old sitemap
+#     or backlinks. Redirecting instead of 404ing preserves any link
+#     equity and points visitors/crawlers to the current equivalent. -----
+/moving-guide-gta /content-hub/ultimate-gta-moving-checklist.html 301
+/moving-guide-gta/ /content-hub/ultimate-gta-moving-checklist.html 301
+/moving-guide-gta/moving-costs /content-hub/budgeting-for-move.html 301
+/moving-guide-gta/moving-costs/ /content-hub/budgeting-for-move.html 301
+/moving-guide-gta/house-moving-tips /content-hub/common-moving-mistakes.html 301
+/moving-guide-gta/house-moving-tips/ /content-hub/common-moving-mistakes.html 301
+/moving-guide-gta/condo-moving-toronto /content-hub/condo-elevator-reservation-toronto.html 301
+/moving-guide-gta/condo-moving-toronto/ /content-hub/condo-elevator-reservation-toronto.html 301
+/moving-guide-gta/apartment-moving-toronto /content-hub/condo-elevator-reservation-toronto.html 301
+/moving-guide-gta/apartment-moving-toronto/ /content-hub/condo-elevator-reservation-toronto.html 301
+/moving-guide-gta/specialty-item-moving /content-hub/moving-specialty-items.html 301
+/moving-guide-gta/specialty-item-moving/ /content-hub/moving-specialty-items.html 301
+/moving-guide-gta/commercial-moving /services/commercial-moving 301
+/moving-guide-gta/commercial-moving/ /services/commercial-moving 301
+/moving-guide-gta/packing-unpacking /services/packing-unpacking 301
+/moving-guide-gta/packing-unpacking/ /services/packing-unpacking 301
