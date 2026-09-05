@@ -1,8 +1,8 @@
 // /assets/reviews-live.js
 //
-// Fetches live Google rating + reviews from our own /api/reviews endpoint (a Cloudflare
-// Pages Function - see /functions/api/reviews.js) and, if successful, replaces the
-// hardcoded rating number and testimonial cards with real, current data.
+// Fetches live Google rating + reviews from our own /api/reviews endpoint (handled by
+// the Worker script at /src/index.js -> /src/reviews.js) and, if successful, replaces
+// the hardcoded rating number and testimonial cards with real, current data.
 //
 // IMPORTANT: if the fetch fails for any reason (API not configured yet, Google API
 // error, network issue), this script does NOTHING and the existing static HTML stays
