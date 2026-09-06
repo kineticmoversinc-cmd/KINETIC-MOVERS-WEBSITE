@@ -319,7 +319,22 @@ section{padding:88px 0}
   font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;
 }
 
-/* ---------- testimonials ---------- */
+/* ---------- testimonials (Google Reviews theme) ---------- */
+.google-reviews-header{
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--line);
+}
+.google-g-icon{width:44px;height:44px;flex-shrink:0}
+.google-g-icon-sm{width:14px;height:14px;flex-shrink:0;vertical-align:-2px;margin-right:5px}
+.google-reviews-summary{flex:1;min-width:220px}
+.google-reviews-summary .eyebrow{margin-bottom:6px}
+.google-reviews-summary h2{margin:0 0 10px}
+.google-reviews-score{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.grs-number{font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--ink)}
+.grs-count{font-family:var(--mono);font-size:0.78rem;color:var(--charcoal-soft);text-transform:uppercase;letter-spacing:0.04em}
+.btn-outline{background:transparent;border:1px solid var(--ink);color:var(--ink)}
+.btn-outline:hover{background:var(--ink);color:var(--white);text-decoration:none}
+
 .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 @media (max-width:860px){.testimonials-grid{grid-template-columns:1fr}}
 .testimonial-card{
@@ -327,10 +342,21 @@ section{padding:88px 0}
   padding:28px;transition:box-shadow .3s ease,border-color .3s ease;
 }
 .testimonial-card p{color:var(--charcoal-soft);font-size:0.94rem;line-height:1.6}
-.testimonial-stars{color:var(--signal-dark);letter-spacing:2px;margin-bottom:10px;font-size:0.9rem}
+.testimonial-stars{color:#FBBC04;letter-spacing:2px;margin-bottom:10px;font-size:0.9rem}
+.testimonial-footer{display:flex;align-items:center;gap:12px;margin-top:16px}
+.testimonial-avatar{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:var(--steel);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:700;font-size:1rem;
+}
 .testimonial-author{
-  margin-top:14px;font-family:var(--mono);font-size:0.78rem;
-  color:var(--charcoal-soft);text-transform:none;letter-spacing:0.02em;
+  font-family:var(--mono);font-size:0.78rem;
+  color:var(--charcoal);text-transform:none;letter-spacing:0.02em;font-weight:600;
+}
+.testimonial-source{
+  display:flex;align-items:center;font-family:var(--mono);font-size:0.7rem;
+  color:var(--charcoal-soft);text-transform:none;letter-spacing:0.01em;margin-top:2px;
 }
 /* Cosmetic pulse used by assets/reviews-live.js to keep the live testimonial
    section visually active as it cycles through real Google reviews. */
