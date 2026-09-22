@@ -19,6 +19,7 @@
 # --- Legacy ------------------------------------------------------------
 /blog / 301
 /blog/ / 301
+/post/kinetic-movers-inc-top-rated-moving-and-storage-services-in-gta /content-hub/ 301
 
 # --- Retired /moving-guide-gta/ section (replaced by /content-hub/ and
 #     /services/ pages). These URLs no longer exist as source files but
