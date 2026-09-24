@@ -317,7 +317,7 @@ section{padding:88px 0}
   font-size:2.2rem;font-weight:800;margin-bottom:10px;display:block;
 }
 .card-icon{width:52px;height:52px;margin-bottom:14px;display:block}
-.card h3{margin-bottom:10px}
+.card h3,.card h2{margin-bottom:10px}
 .card p{color:var(--charcoal-soft);font-size:0.96rem}
 .card a.card-link{
   display:inline-block;margin-top:16px;font-family:var(--mono);
@@ -578,7 +578,7 @@ blockquote{
 }
 
 .footer-logo{height:40px;width:40px;border-radius:50%;margin-bottom:12px;aspect-ratio:1/1;object-fit:cover}
-.footer-grid h4{color:var(--white);font-size:0.95rem;margin-bottom:14px}
+.footer-grid h4,.footer-grid h3{color:var(--white);font-size:0.95rem;margin-bottom:14px}
 .footer-grid ul{list-style:none}
 .footer-grid li{margin-bottom:9px;font-size:0.9rem}
 .footer-grid a{color:rgba(255,255,255,0.7)}
