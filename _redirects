@@ -43,3 +43,11 @@
 /moving-guide-gta/commercial-moving/ /services/commercial-moving 301
 /moving-guide-gta/packing-unpacking /services/packing-unpacking 301
 /moving-guide-gta/packing-unpacking/ /services/packing-unpacking 301
+
+# --- Phase 2 (2026-09-23): location route pages moved to /routes/ ---
+/locations/ottawa /routes/toronto-to-ottawa 301
+/locations/ottawa/ /routes/toronto-to-ottawa 301
+/locations/windsor /routes/toronto-to-windsor 301
+/locations/windsor/ /routes/toronto-to-windsor 301
+/locations/montreal /routes/toronto-to-montreal 301
+/locations/montreal/ /routes/toronto-to-montreal 301
