@@ -342,12 +342,20 @@ function initChatWidget() {
     panel.hidden = true;
   });
 
+  function scrollChatToBottom() {
+    // Deferred to the next animation frame so the scrollHeight read doesn't force
+    // a synchronous layout recalculation right after the appendChild above.
+    requestAnimationFrame(function () {
+      body.scrollTop = body.scrollHeight;
+    });
+  }
+
   function addBotMessage(text) {
     var m = document.createElement("div");
     m.className = "kw-msg";
     m.textContent = text;
     body.appendChild(m);
-    body.scrollTop = body.scrollHeight;
+    scrollChatToBottom();
   }
 
   function addUserMessage(text) {
@@ -355,7 +363,7 @@ function initChatWidget() {
     m.className = "kw-msg kw-msg-user";
     m.textContent = text;
     body.appendChild(m);
-    body.scrollTop = body.scrollHeight;
+    scrollChatToBottom();
   }
 
   function clearStep() {
@@ -375,7 +383,7 @@ function initChatWidget() {
       '<input type="text" id="kw-input-name" placeholder="Your name">' +
       '<div class="kw-step-actions"><button class="kw-btn-next" id="kw-next-name">Next</button></div>';
     body.appendChild(step);
-    body.scrollTop = body.scrollHeight;
+    scrollChatToBottom();
 
     document.getElementById("kw-next-name").addEventListener("click", function () {
       var val = document.getElementById("kw-input-name").value.trim();
@@ -393,7 +401,7 @@ function initChatWidget() {
     step.className = "kw-step";
     step.innerHTML = '<div class="kw-quick-replies"><button data-val="Local (GTA)">Local (GTA)</button><button data-val="Long-distance">Long-distance</button><button data-val="Commercial/office">Commercial/office</button></div>';
     body.appendChild(step);
-    body.scrollTop = body.scrollHeight;
+    scrollChatToBottom();
 
     Array.prototype.forEach.call(step.querySelectorAll("button"), function (btn) {
       btn.addEventListener("click", function () {
@@ -414,7 +422,7 @@ function initChatWidget() {
       '<input type="text" id="kw-input-details" placeholder="e.g. Brampton to Mississauga, mid-September">' +
       '<div class="kw-step-actions"><button class="kw-btn-next" id="kw-next-details">Send to WhatsApp</button></div>';
     body.appendChild(step);
-    body.scrollTop = body.scrollHeight;
+    scrollChatToBottom();
 
     document.getElementById("kw-next-details").addEventListener("click", function () {
       var val = document.getElementById("kw-input-details").value.trim();
