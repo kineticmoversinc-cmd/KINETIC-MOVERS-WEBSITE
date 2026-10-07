@@ -51,3 +51,29 @@
 /locations/windsor/ /routes/toronto-to-windsor 301
 /locations/montreal /routes/toronto-to-montreal 301
 /locations/montreal/ /routes/toronto-to-montreal 301
+
+# --- Old Wix-era URLs reported as 404 in Search Console (2026-10-07) -----
+# Each goes to the closest real equivalent. /search is intentionally left
+# as a 404: nothing on this site matches it, and redirecting unrelated
+# pages to the homepage would be treated by Google as a soft 404.
+/our-services /services/ 301
+/our-services/ /services/ 301
+/portfolio /services/ 301
+/portfolio/ /services/ 301
+/portfolio-collections/portfolio /services/ 301
+/portfolio-collections/portfolio/ /services/ 301
+/portfolio-collections/portfolio/specialty-item-handling /content-hub/moving-specialty-items 301
+/portfolio-collections/portfolio/specialty-item-handling/ /content-hub/moving-specialty-items 301
+/portfolio-collections/portfolio/gta-residential-move /services/residential-moving 301
+/portfolio-collections/portfolio/gta-residential-move/ /services/residential-moving 301
+/service-page/packing-service /services/packing-unpacking 301
+/service-page/packing-service/ /services/packing-unpacking 301
+/pricing-plans/plans-pricing /content-hub/budgeting-for-move 301
+/pricing-plans/plans-pricing/ /content-hub/budgeting-for-move 301
+/post/top-benefits-of-hiring-professional-moving-services-for-your-move /content-hub/ 301
+
+# .html variants of the pages moved to /routes/ (no source file exists for
+# these, so there is no loop risk with Cloudflare's .html handling)
+/locations/ottawa.html /routes/toronto-to-ottawa 301
+/locations/windsor.html /routes/toronto-to-windsor 301
+/locations/montreal.html /routes/toronto-to-montreal 301
