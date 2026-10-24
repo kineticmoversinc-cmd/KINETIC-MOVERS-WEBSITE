@@ -9,15 +9,18 @@
 // REQUIRED SETUP (Cloudflare dashboard):
 //   1. Email Routing / Email Service must be set up for kineticmovers.ca, with the
 //      destination inbox (QUOTE_TO) verified.
-//   2. wrangler.jsonc needs the send_email binding named EMAIL, plus the variables
-//      QUOTE_TO (inbox that receives leads) and QUOTE_FROM (an address on
-//      kineticmovers.ca that the email is sent from).
+//   2. wrangler.jsonc needs the send_email binding named EMAIL.
+//   Leads go to DEFAULT_TO from DEFAULT_FROM below. To change either without editing code,
+//   add a plain-text variable QUOTE_TO / QUOTE_FROM in the Cloudflare dashboard.
 // If the EMAIL binding is missing this returns 503 and the website uses Formspree.
 //
 // Status codes the website understands:
 //   200  lead emailed          -> website shows our /thank-you page
 //   422  rejected (bad/missing details, or looks like a bot) -> website shows a message
 //   anything else              -> website tries Formspree instead
+
+const DEFAULT_TO = 'kineticmovers.inc@gmail.com'; // inbox that receives leads (verified in Email Routing)
+const DEFAULT_FROM = 'info@kineticmovers.ca'; // must be an address on kineticmovers.ca
 
 const MAX = { name: 100, phone: 40, email: 200, place: 200, date: 40, size: 80, extra: 300 };
 
@@ -79,7 +82,7 @@ export async function handleQuote(request, env, ctx) {
     if (originHost !== host) return json({ ok: false, error: 'forbidden' }, 403);
   }
 
-  if (!env.EMAIL || !env.QUOTE_TO || !env.QUOTE_FROM) {
+  if (!env.EMAIL) {
     return json({ ok: false, error: 'not_configured' }, 503);
   }
 
@@ -129,8 +132,8 @@ export async function handleQuote(request, env, ctx) {
 
   try {
     await env.EMAIL.send({
-      to: env.QUOTE_TO,
-      from: env.QUOTE_FROM,
+      to: env.QUOTE_TO || DEFAULT_TO,
+      from: env.QUOTE_FROM || DEFAULT_FROM,
       replyTo: values.email,
       subject,
       text,

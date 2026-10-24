@@ -6,5 +6,9 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS"
-  }
+  },
+  // Quote-form emails (src/quote.js) are sent through this binding. The sender/recipient
+  // addresses live in src/quote.js on purpose: a "vars" block here would overwrite the
+  // plain-text variables kept in the Cloudflare dashboard (e.g. for the reviews feed).
+  "send_email": [{ "name": "EMAIL" }]
 }
