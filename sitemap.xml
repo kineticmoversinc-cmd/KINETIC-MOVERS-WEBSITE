@@ -63,4 +63,6 @@
     <priority>0.8</priority>
   </url>
   <url><loc>https://www.kineticmovers.ca/privacy</loc><lastmod>2026-10-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.kineticmovers.ca/routes/ottawa-to-toronto</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.kineticmovers.ca/routes/montreal-to-toronto</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
