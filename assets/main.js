@@ -501,37 +501,77 @@ function initAdTracking() {
 }
 
 /* ---------- send quote forms in the background, then show OUR thank-you page ----------
-   Formspree's free plan ignores the _next redirect field, so a normal form post leaves
-   visitors on Formspree's own "thanks" page - which means our /thank-you page (and the
-   Google Ads conversion that fires on it) never loads. Instead we post the form with
-   fetch(), and on success send the visitor to /thank-you ourselves.
-   If anything goes wrong (old browser, network error, Formspree rejects it) we fall back
-   to a normal form post so a lead is never lost. ---------- */
+   Order of attempts, so a lead is never lost:
+     1. our own endpoint  POST /api/quote  (emails the lead to the business inbox)
+     2. Formspree, in the background (backup)
+     3. a normal Formspree form post (last resort)
+   Whichever of 1 or 2 succeeds, the visitor goes to /thank-you, where the Google Ads
+   conversion fires. A 422 from our endpoint means "your details need fixing", so we show
+   the message instead of falling back. ---------- */
 function initQuoteFormSubmit() {
   if (!window.fetch || !window.FormData) return;
   Array.prototype.forEach.call(document.querySelectorAll('form[action*="formspree.io"]'), function (form) {
     var sending = false;
+    var btn = form.querySelector('button[type="submit"]');
+    var btnLabel = btn ? btn.textContent : '';
+
+    // Hidden trap field for bots (people never see it). Formspree also ignores a filled _gotcha.
+    var trap = document.createElement('input');
+    trap.type = 'text';
+    trap.name = '_gotcha';
+    trap.tabIndex = -1;
+    trap.autocomplete = 'off';
+    trap.setAttribute('aria-hidden', 'true');
+    trap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0';
+    form.appendChild(trap);
+
+    var errorBox = document.createElement('p');
+    errorBox.setAttribute('role', 'alert');
+    errorBox.style.cssText = 'color:#b42318;font-size:0.9rem;margin-top:10px;display:none';
+    if (btn && btn.parentNode) btn.parentNode.insertBefore(errorBox, btn.nextSibling);
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+      sending = false;
+      if (btn) { btn.disabled = false; btn.textContent = btnLabel; }
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (sending) return;
       sending = true;
-
-      var btn = form.querySelector('button[type="submit"]');
+      errorBox.style.display = 'none';
       if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
 
-      function fallback() { form.submit(); } // plain post; does not re-trigger this handler
+      function done() { window.location.assign('/thank-you'); }
+      function lastResort() { form.submit(); } // plain Formspree post; does not re-trigger this handler
 
-      fetch(form.action, {
+      function viaFormspree() {
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        }).then(function (res) {
+          if (res.ok) done(); else lastResort();
+        }).catch(lastResort);
+      }
+
+      fetch('/api/quote', {
         method: 'POST',
         body: new FormData(form),
         headers: { 'Accept': 'application/json' }
       }).then(function (res) {
-        if (res.ok) {
-          window.location.assign('/thank-you');
-        } else {
-          fallback();
+        if (res.ok) { done(); return; }
+        if (res.status === 422) {
+          return res.json().then(function (d) {
+            showError((d && d.error) || 'Please check your details and try again.');
+          }, function () {
+            showError('Please check your details and try again.');
+          });
         }
-      }).catch(fallback);
+        viaFormspree();
+      }).catch(viaFormspree);
     });
   });
 }

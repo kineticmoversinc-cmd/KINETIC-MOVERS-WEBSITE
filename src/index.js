@@ -11,6 +11,7 @@
 //
 // Routing:
 //   GET /api/reviews  -> handled here, calls Google Places API server-side (see src/reviews.js)
+//   POST /api/quote   -> handled here, validates the quote form and emails it (see src/quote.js)
 //   everything else    -> served as a static asset (your existing HTML/CSS/JS/images).
 //                         For HTML pages specifically, the JSON-LD "aggregateRating"
 //                         block (rating + reviewCount used for Google's star-rating rich
@@ -21,6 +22,7 @@
 //                         its static fallback numbers - this never breaks a page load.
 
 import { handleReviews, getReviewStats } from './reviews.js';
+import { handleQuote } from './quote.js';
 
 // Matches the aggregateRating block exactly as it appears in every page's JSON-LD,
 // e.g.:
@@ -38,6 +40,10 @@ export default {
 
     if (url.pathname === '/api/reviews' && request.method === 'GET') {
       return handleReviews(request, env, ctx);
+    }
+
+    if (url.pathname === '/api/quote' && request.method === 'POST') {
+      return handleQuote(request, env, ctx);
     }
 
     // Not an API route - serve the static asset first.
