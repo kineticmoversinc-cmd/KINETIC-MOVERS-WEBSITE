@@ -20,7 +20,8 @@
   }
   var events = ['scroll','mousemove','touchstart','keydown'];
   events.forEach(function(e){ w.addEventListener(e, loadGTM, {passive:true, once:true}); });
-  var fallback = setTimeout(loadGTM, 3500);
+  var fallback;
+  loadGTM(); // thank-you page: load tracking right away so the conversion is never missed
 })(window,document,'script','dataLayer','GTM-WXXP7KJC');
 </script>
 <!-- End Google Tag Manager -->
@@ -31,8 +32,15 @@
   // Fires once when a quote request completes. In GTM, create a Custom Event
   // trigger listening for "quote_form_submit" and attach it to your Google Ads
   // conversion tag (Admin > Conversions in Google Ads, once you're running ads).
+  // Guard: a refresh or back-button revisit within 30 minutes does not count twice.
+  var kwFresh = true;
+  try {
+    var kwLast = Number(sessionStorage.getItem('kwLeadFired') || 0);
+    if (Date.now() - kwLast < 30 * 60 * 1000) kwFresh = false;
+    else sessionStorage.setItem('kwLeadFired', String(Date.now()));
+  } catch (e) {}
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'quote_form_submit' });
+  if (kwFresh) window.dataLayer.push({ event: 'quote_form_submit' });
 </script>
 <meta name="description" content="Your quote request has been received. A member of the Kinetic Movers team will be in touch within one business day.">
 <link rel="canonical" href="https://www.kineticmovers.ca/thank-you">
@@ -143,6 +151,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </footer>
-<script src="/assets/main.min.js?v=1"></script>
+<script src="/assets/main.min.js?v=2"></script>
 </body>
 </html>

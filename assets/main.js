@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
   initFormResetOnBack();
   initPhoneQr();
   initPhoneClickTracking();
+  initAdTracking();
+  initQuoteFormSubmit();
 });
 
 /* ---------- push a dataLayer event whenever someone clicks a tel: link ----------
@@ -439,6 +441,97 @@ function initChatWidget() {
       ". I'm looking for a " + answers.type + " move. Details: " + answers.details +
       ". Can you send me a quote?";
     var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "whatsapp_click", source: "chat_widget" });
     window.open(url, "_blank", "noopener");
   }
+}
+
+/* ---------- ad attribution + conversion events ----------
+   1. Remembers where a visitor came from (Google Ads click id and utm_* tags in the
+      landing URL) for the rest of their visit, and copies it into hidden fields on every
+      quote form. Each quote email from Formspree then shows which ad/keyword/page it
+      came from.
+   2. Pushes dataLayer events that GTM can use as conversions or audiences:
+        whatsapp_click    - any tap on a wa.me link, or the chat widget handing off to WhatsApp
+        quote_form_start  - first time a visitor clicks into a quote form
+      (phone_click and quote_form_submit are pushed elsewhere.) ---------- */
+function initAdTracking() {
+  window.dataLayer = window.dataLayer || [];
+  var KEYS = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  var store = {};
+  try { store = JSON.parse(sessionStorage.getItem('kwAttribution') || '{}') || {}; } catch (e) { store = {}; }
+
+  var params = new URLSearchParams(window.location.search);
+  var fresh = false;
+  KEYS.forEach(function (k) {
+    var v = params.get(k);
+    if (v) { store[k] = v.slice(0, 200); fresh = true; }
+  });
+  if (fresh || !store.landing_page) {
+    store.landing_page = window.location.pathname;
+    if (document.referrer) store.referrer = document.referrer.slice(0, 200);
+  }
+  try { sessionStorage.setItem('kwAttribution', JSON.stringify(store)); } catch (e) {}
+
+  function addHidden(form, name, value) {
+    if (!value || form.querySelector('input[name="' + name + '"]')) return;
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    form.appendChild(input);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('form[action*="formspree.io"]'), function (form) {
+    Object.keys(store).forEach(function (k) { addHidden(form, k, store[k]); });
+    addHidden(form, 'form_page', window.location.pathname);
+    var started = false;
+    form.addEventListener('focusin', function () {
+      if (started) return;
+      started = true;
+      window.dataLayer.push({ event: 'quote_form_start', form_page: window.location.pathname });
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
+    if (a) window.dataLayer.push({ event: 'whatsapp_click', source: 'link' });
+  });
+}
+
+/* ---------- send quote forms in the background, then show OUR thank-you page ----------
+   Formspree's free plan ignores the _next redirect field, so a normal form post leaves
+   visitors on Formspree's own "thanks" page - which means our /thank-you page (and the
+   Google Ads conversion that fires on it) never loads. Instead we post the form with
+   fetch(), and on success send the visitor to /thank-you ourselves.
+   If anything goes wrong (old browser, network error, Formspree rejects it) we fall back
+   to a normal form post so a lead is never lost. ---------- */
+function initQuoteFormSubmit() {
+  if (!window.fetch || !window.FormData) return;
+  Array.prototype.forEach.call(document.querySelectorAll('form[action*="formspree.io"]'), function (form) {
+    var sending = false;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (sending) return;
+      sending = true;
+
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+
+      function fallback() { form.submit(); } // plain post; does not re-trigger this handler
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          window.location.assign('/thank-you');
+        } else {
+          fallback();
+        }
+      }).catch(fallback);
+    });
+  });
 }
