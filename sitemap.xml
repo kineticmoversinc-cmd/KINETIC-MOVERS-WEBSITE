@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.kineticmovers.ca/</loc><lastmod>2026-10-02</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.kineticmovers.ca/services/</loc><lastmod>2026-09-23</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.kineticmovers.ca/</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.kineticmovers.ca/services/</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.kineticmovers.ca/services/residential-moving</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.kineticmovers.ca/services/packing-unpacking</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.kineticmovers.ca/services/commercial-moving</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -24,9 +24,9 @@
   <url><loc>https://www.kineticmovers.ca/locations/brantford</loc><lastmod>2026-10-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.kineticmovers.ca/locations/niagara-falls</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.kineticmovers.ca/locations/oshawa</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kineticmovers.ca/routes/toronto-to-ottawa</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.kineticmovers.ca/routes/toronto-to-windsor</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.kineticmovers.ca/routes/toronto-to-montreal</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.kineticmovers.ca/routes/toronto-to-ottawa</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.kineticmovers.ca/routes/toronto-to-windsor</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.kineticmovers.ca/routes/toronto-to-montreal</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.kineticmovers.ca/content-hub/ultimate-gta-moving-checklist</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.kineticmovers.ca/content-hub/moving-with-children</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.kineticmovers.ca/content-hub/moving-with-pets</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -37,10 +37,10 @@
   <url><loc>https://www.kineticmovers.ca/content-hub/common-moving-mistakes</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.kineticmovers.ca/content-hub/preparing-home-for-sale</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.kineticmovers.ca/content-hub/condo-elevator-reservation-toronto</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.kineticmovers.ca/content-hub/brampton-peel-moving-cost-breakdown</loc><lastmod>2026-09-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.kineticmovers.ca/content-hub/brampton-peel-moving-cost-breakdown</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url>
     <loc>https://www.kineticmovers.ca/services/long-distance-moving</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -63,6 +63,6 @@
     <priority>0.8</priority>
   </url>
   <url><loc>https://www.kineticmovers.ca/privacy</loc><lastmod>2026-10-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.kineticmovers.ca/routes/ottawa-to-toronto</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kineticmovers.ca/routes/montreal-to-toronto</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.kineticmovers.ca/routes/ottawa-to-toronto</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.kineticmovers.ca/routes/montreal-to-toronto</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
