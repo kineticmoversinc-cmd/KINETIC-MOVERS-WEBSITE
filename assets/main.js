@@ -289,6 +289,9 @@ function initFloatingButtons() {
   var wrap = document.createElement("div");
   wrap.className = "kw-floating";
   wrap.innerHTML =
+    '<button class="kw-fab kw-fab-quote" id="kw-quote-btn" aria-label="Get a free quote">' +
+      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h8l9 9-8.5 8.5a2 2 0 0 1-2.8 0L3 14.8V3Z" stroke="white" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.6" fill="white"/></svg>' +
+    '</button>' +
     '<a class="kw-fab kw-fab-ig" href="' + INSTAGRAM_URL + '" target="_blank" rel="noopener" aria-label="Message us on Instagram">' +
       '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="white"/></svg>' +
     '</a>' +
@@ -299,6 +302,20 @@ function initFloatingButtons() {
       '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5h16v11H8l-4 4V5Z" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>' +
     '</button>';
   document.body.appendChild(wrap);
+
+  var quoteBtn = document.getElementById("kw-quote-btn");
+  if (quoteBtn) {
+    quoteBtn.addEventListener("click", function () {
+      var form = document.querySelector('form[action*="formspree"]');
+      if (form) {
+        form.scrollIntoView({ behavior: "smooth", block: "center" });
+        var first = form.querySelector("input, select, textarea");
+        if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 600);
+      } else {
+        window.location.href = "/contact";
+      }
+    });
+  }
 
   // Swap this for your real "leave a review" link — Google Business Profile
   // > Ask for reviews > copy the short link (looks like https://g.page/r/.../review)

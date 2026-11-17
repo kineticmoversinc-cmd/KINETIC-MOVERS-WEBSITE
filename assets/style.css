@@ -503,6 +503,7 @@ blockquote{
 .kw-fab-wa{background:#25D366}
 .kw-fab-ig{background:radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)}
 .kw-fab-chat{background:var(--signal)}
+.kw-fab-quote{background:var(--ink)}
 
 .kw-chat-panel{
   position:fixed;right:18px;bottom:88px;z-index:61;
