@@ -551,6 +551,25 @@ blockquote{
   .kw-fab svg{width:22px;height:22px}
   .kw-chat-panel{right:10px;left:10px;width:auto;bottom:80px}
 }
+/* ---------- sticky mobile action bar ---------- */
+.kw-mobile-bar{display:none}
+@media (max-width:720px){
+  .kw-mobile-bar{
+    display:flex;position:fixed;left:0;right:0;bottom:0;z-index:65;
+    background:var(--ink);box-shadow:0 -4px 16px rgba(0,0,0,0.25);
+  }
+  .kw-mobile-bar a,.kw-mobile-bar button{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 8px;font-family:var(--body);font-size:0.98rem;font-weight:600;
+    color:var(--white);text-decoration:none;background:none;border:none;cursor:pointer;
+  }
+  .kw-mobile-bar svg{width:20px;height:20px;flex:none}
+  .kw-mb-quote{background:var(--signal)}
+  body{padding-bottom:52px}
+  .kw-floating{bottom:66px}
+  .kw-floating-left{bottom:66px}
+  .kw-chat-panel{bottom:128px}
+}
 /* ---------- desktop "scan to call" QR modal ---------- */
 .kw-qr-overlay{
   position:fixed;inset:0;z-index:900;

@@ -303,18 +303,38 @@ function initFloatingButtons() {
     '</button>';
   document.body.appendChild(wrap);
 
+  function scrollToQuoteForm() {
+    var form = document.querySelector('form[action*="formspree"]');
+    if (form) {
+      form.scrollIntoView({ behavior: "smooth", block: "center" });
+      var first = form.querySelector("input, select, textarea");
+      if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 600);
+    } else {
+      window.location.href = "/contact";
+    }
+  }
+
   var quoteBtn = document.getElementById("kw-quote-btn");
   if (quoteBtn) {
-    quoteBtn.addEventListener("click", function () {
-      var form = document.querySelector('form[action*="formspree"]');
-      if (form) {
-        form.scrollIntoView({ behavior: "smooth", block: "center" });
-        var first = form.querySelector("input, select, textarea");
-        if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 600);
-      } else {
-        window.location.href = "/contact";
-      }
-    });
+    quoteBtn.addEventListener("click", scrollToQuoteForm);
+  }
+
+  // Sticky mobile action bar: Call + Get a Quote, always visible on small screens
+  var mobileBar = document.createElement("div");
+  mobileBar.className = "kw-mobile-bar";
+  mobileBar.innerHTML =
+    '<a class="kw-mb-call" href="tel:+14165237909">' +
+      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>' +
+      '<span>Call us</span>' +
+    '</a>' +
+    '<button class="kw-mb-quote" id="kw-mb-quote-btn" type="button">' +
+      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h8l9 9-8.5 8.5a2 2 0 0 1-2.8 0L3 14.8V3Z" stroke="white" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.6" fill="white"/></svg>' +
+      '<span>Get a free quote</span>' +
+    '</button>';
+  document.body.appendChild(mobileBar);
+  var mbQuoteBtn = document.getElementById("kw-mb-quote-btn");
+  if (mbQuoteBtn) {
+    mbQuoteBtn.addEventListener("click", scrollToQuoteForm);
   }
 
   // Swap this for your real "leave a review" link — Google Business Profile
